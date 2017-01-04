@@ -29,7 +29,7 @@ Minecraft.init = function () {
         for (var j = 0; j < Minecraft.matrix[i].length; j++) {
             Minecraft.boxes.eq(i * 20 + j)
                 .data("i", i)
-                .data("j", j);
+                .data("j", j).addClass(i+'-'+j);
         }
     }
 };
