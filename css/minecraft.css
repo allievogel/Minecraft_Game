@@ -7,10 +7,14 @@ body{
     width: 30px;
     height: 30px;
     background-color: #91C1FC;
-    border:1px solid black;
     display: inline-block;
     background-size: cover;
     display:inline-block;
+}
+
+#board{
+    width: 600px;
+    line-height: 0;
 }
 .row{
 line-height: 0;
@@ -19,6 +23,7 @@ line-height: 0;
 .dirt{
     background-image: url(../images/dirt.png);
 }
+<<<<<<< HEAD
 
 .sideBar{
 	height: 640px;
@@ -26,4 +31,8 @@ line-height: 0;
 	background-color: black;
 	display: inline-block;
 	float: left;
+=======
+.box:hover{
+    opacity: 0.5;
+>>>>>>> 00a1a84fa50b3afedeead26c85c49b587388e687
 }
