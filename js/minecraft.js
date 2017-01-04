@@ -43,19 +43,19 @@ Minecraft.init = function () {
 
 Minecraft.init();
 
-function createDirt(){
-    for(var i=300; i<400; i++){
-        $(".box").eq(i).css("background-image", "url(./images/dirt.png)");
+function createDirt() {
+    for (var i = 300; i < 400; i++) {
+        Minecraft.boxes.eq(i).css("background-image", "url(./images/dirt.png)");
     }
 }
 
-function createGrass(){
-    for(var i=280; i<300; i++){
-        $(".box").eq(i).css("background-image", "url(./images/grass.png)");
+function createGrass() {
+    for (var i = 280; i < 300; i++) {
+        Minecraft.boxes.eq(i).css("background-image", "url(./images/grass.png)");
     }
 }
 
-function  createFullDraw() {
+function createFullDraw() {
     createDirt();
     createGrass();
 }
