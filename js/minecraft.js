@@ -53,9 +53,14 @@ Minecraft.createBoard = function () {
             var box = $("<div/>")
                 .addClass("box")
                 .data("i", i)
+             
+
+
+
+              //  .data("j", j).addClass(i+'-'+j);
+
                 .data("j", j);
 
-            $("#board").append(box);
         }
     }
 };
