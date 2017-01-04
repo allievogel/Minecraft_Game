@@ -7,9 +7,13 @@ body{
     width: 30px;
     height: 30px;
     background-color: #91C1FC;
-    border:1px solid black;
     display: inline-block;
     background-size: cover;
+}
+
+#board{
+    width: 600px;
+    line-height: 0;
 }
 .row{
 line-height: 0;
@@ -17,4 +21,7 @@ line-height: 0;
 
 .dirt{
     background-image: url(../images/dirt.png);
+}
+.box:hover{
+    opacity: 0.5;
 }
