@@ -42,25 +42,30 @@ var Minecraft = {};
 // };
 
 Minecraft.createBoard = function () {
+    //create matrx array
     Minecraft.matrix = new Array(20);
     for(var l=0; l<Minecraft.matrix.length; l++){
         Minecraft.matrix[l] = new Array(20);
     }
+    for(var x=0; x<Minecraft.matrix.length; x++){
+        for(var y=0; y<Minecraft.matrix.length; y++){
+            Minecraft.matrix[x][y] = "";
+        }
+    }
 
 
+
+
+/// create board
     for(var i=0; i<Minecraft.matrix.length; i++){
         for (var j = 0; j < Minecraft.matrix[i].length; j++) {
             var box = $("<div/>")
                 .addClass("box")
-                .data("i", i)
-             
-
-
-
-              //  .data("j", j).addClass(i+'-'+j);
-
-                .data("j", j);
-
+                .data("line", i)
+                .data("column", j)
+                // add on.click
+                .on("click", boxClicked);
+            $("#board").append(box);
         }
     }
 };
@@ -129,5 +134,12 @@ function createFullDraw() {
     createTree();
     createCloud();
 }
-
 createFullDraw();
+
+function boxClicked(){
+    var li = $(this).data("line");
+    var col = $(this).data("column");
+
+    Minecraft.matrix[li][col] = "clicked!";
+    console.log(Minecraft.matrix[li][col]);
+}
