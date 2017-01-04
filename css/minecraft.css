@@ -6,10 +6,15 @@ body{
 .box{
     width: 30px;
     height: 30px;
-    background-color: aqua;
+    background-color: #91C1FC;
     border:1px solid black;
     display: inline-block;
+    background-size: cover;
 }
 .row{
 line-height: 0;
+}
+
+.dirt{
+    background-image: url(../images/dirt.png);
 }

@@ -29,8 +29,44 @@ Minecraft.init = function () {
         for (var j = 0; j < Minecraft.matrix[i].length; j++) {
             Minecraft.boxes.eq(i * 20 + j)
                 .data("i", i)
-                .data("j", j).addClass(i+'-'+j);
+             
+
+
+
+              //  .data("j", j).addClass(i+'-'+j);
+
+                .data("j", j);
+
+
+
+
+            // cellType = Minecraft.matrix[i][j]; //dirt
+            // DOMcell = $('.' + i + '-' + j);
+            // if (cellType == 'dirt') {
+            // }
+            // DOMcell.addClass(cellType);
         }
     }
+    //     }
+    // }
 };
+
 Minecraft.init();
+
+function createDirt() {
+    for (var i = 300; i < 400; i++) {
+        Minecraft.boxes.eq(i).css("background-image", "url(./images/dirt.png)");
+    }
+}
+
+function createGrass() {
+    for (var i = 280; i < 300; i++) {
+        Minecraft.boxes.eq(i).css("background-image", "url(./images/grass.png)");
+    }
+}
+
+function createFullDraw() {
+    createDirt();
+    createGrass();
+}
+createFullDraw();
