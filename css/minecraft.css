@@ -9,6 +9,7 @@ body{
     background-color: #91C1FC;
     display: inline-block;
     background-size: cover;
+    display:inline-block;
 }
 
 #board{
@@ -91,3 +92,15 @@ body{
     position:relative;
     top:1px;
 }
+
+.sideBar{
+	height: 640px;
+	width: 140px;
+	background-color: black;
+	display: inline-block;
+	float: left;
+
+.box:hover{
+    opacity: 0.5;
+}
+
