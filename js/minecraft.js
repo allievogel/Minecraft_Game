@@ -1,6 +1,5 @@
 var Minecraft = {};
 
-
 Minecraft.startGame = function(){
     $("#intro").css("display", "none");
 };
@@ -17,7 +16,8 @@ Minecraft.boxClicked = function(){
 
 
 Minecraft.createBoard = function () {
-    //create matrx array
+    
+    //creates matrix array
     Minecraft.matrix = new Array(20);
     for(var l=0; l<Minecraft.matrix.length; l++){
         Minecraft.matrix[l] = new Array(20);
@@ -27,6 +27,7 @@ Minecraft.createBoard = function () {
             Minecraft.matrix[x][y] = "";
         }
     }
+
 
 /// create board
     for(var i=0; i<Minecraft.matrix.length; i++){
@@ -108,7 +109,6 @@ Minecraft.drawBoard = function(){
         }
     }
 
-
     //Draw Tree
     Minecraft.createTree(14, 16);
     Minecraft.createRock(14, 14);
@@ -155,6 +155,47 @@ Minecraft.updateBoard = function(){
         }
     }
 }
+
+Minecraft.sideBar = function () {
+    var mainMenu = $("<div/>");
+    $(mainMenu).addClass("menuClass");
+    
+    var pickAxe = $("<div/>")
+            .addClass("tool")
+            .attr("id", "pickAxeTool");
+    var pickTitle = $("<p/>")
+            .text("PickAxe")
+            .addClass("textClass");
+    $(pickAxe).append(pickTitle);
+    $(mainMenu).append(pickAxe);
+
+    var shovel = $("<div/>")
+            .addClass("tool")
+            .attr("id", "shovelTool");
+    var shovelTitle = $("<p/>")
+            .text("Shovel")
+            .addClass("textClass");
+    $(shovel).append(shovelTitle);
+    $(mainMenu).append(shovel);
+
+    var axe = $("<div/>")
+            .addClass ("tool")
+            .attr("id", "axetool");
+    var axeTitle = $("<p/>")
+            .text("Axe")
+            .addClass("textClass");
+    $(axe).append(axeTitle);
+    $(mainMenu).append(axe); 
+
+    var emptyBox = $("<div/>")
+            .addClass("emptyBoxClass")
+            .attr("id", "emptyBoxtool");
+    $(mainMenu).append(emptyBox);
+
+    $("body").append(mainMenu);
+};
+
+Minecraft.sideBar();
 
 
 
