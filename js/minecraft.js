@@ -4,12 +4,38 @@ Minecraft.startGame = function(){
     $("#intro").css("display", "none");
 };
 
+//update the temp picked element
+Minecraft.tempElement = function(tempPicked){
+    $('#emptyBoxtool').removeClass()
+                    .css({"display" : "block"})
+                    .addClass(tempPicked);
+}
+
 // box is clicked
 Minecraft.boxClicked = function(){
-    var li = $(this).data("line");
+    var line = $(this).data("line");
     var col = $(this).data("column");
+    console.log("  line:" + line + "  column:" +col );
 
-    console.log("  line:" + li + "  column:" +col );
+    if(Minecraft.selectedTool=="axetool"){
+        if(Minecraft.matrix[line][col] =="tree" || Minecraft.matrix[line][col] =="leaf"){
+            Minecraft.tempElement(Minecraft.matrix[line][col]);
+            Minecraft.matrix[line][col] = "";
+        }
+    }
+    else if(Minecraft.selectedTool=="pickAxeTool"){
+        if(Minecraft.matrix[line][col] =="rock"){
+            Minecraft.tempElement(Minecraft.matrix[line][col]);
+            Minecraft.matrix[line][col] = "";
+        }
+    }
+    else if(Minecraft.selectedTool=="shovelTool"){
+        if(Minecraft.matrix[line][col] =="dirt" || Minecraft.matrix[line][col] =="grass" ){
+            Minecraft.tempElement(Minecraft.matrix[line][col]);
+            Minecraft.matrix[line][col] = "";
+        }
+    }
+
 
     Minecraft.updateBoard();
 };
@@ -142,19 +168,6 @@ Minecraft.drawBoard();
 
 
 
-Minecraft.updateBoard = function(){
-    Minecraft.boxes
-        .removeClass("grass")
-        .removeClass("dirt")
-        .removeClass("tree")
-        .removeClass("rock");
-
-    for(var i=0; i<Minecraft.matrix.length; i++){
-        for (var j = 0; j < Minecraft.matrix[i].length; j++) {
-            Minecraft.boxes.eq(i*20 + j).addClass(Minecraft.matrix[i][j]);
-        }
-    }
-}
 
 Minecraft.sideBar = function () {
     var mainMenu = $("<div/>");
@@ -198,16 +211,17 @@ Minecraft.sideBar = function () {
 Minecraft.sideBar();
 
 
-
-$(".tool").click(Minecraft.selectTool);
-Minecraft.selectedTool = function(){
+Minecraft.toolSelect = function(){
     if($(this).hasClass("tool")){
-        Minecraft.selectedTool = $(this).attr(id);
+        Minecraft.selectedTool = $(this).attr('id');
+        console.log("Current tool: " + Minecraft.selectedTool);
     }
     else{
-
+        Minecraft.selectedTool = 'tempTool';
     }
 };
+
+$(".tool").on("click",Minecraft.toolSelect);
 
 
 
