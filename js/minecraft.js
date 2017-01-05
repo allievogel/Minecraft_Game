@@ -1,5 +1,10 @@
 var Minecraft = {};
 
+Minecraft.startGame = function(){
+    $("#intro").css("display", "none");
+};
+
+
 // Minecraft.init = function () {
 //     Minecraft.boxes = $(".box");
 //     Minecraft.matrix = [
@@ -52,9 +57,6 @@ Minecraft.createBoard = function () {
             Minecraft.matrix[x][y] = "";
         }
     }
-
-
-
 
 /// create board
     for(var i=0; i<Minecraft.matrix.length; i++){
@@ -141,5 +143,5 @@ function boxClicked(){
     var col = $(this).data("column");
 
     Minecraft.matrix[li][col] = "clicked!";
-    console.log(Minecraft.matrix[li][col]);
+    console.log(Minecraft.matrix[li][col] + "  line:" + li + "  column:" +col );
 }
