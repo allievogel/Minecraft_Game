@@ -1,50 +1,20 @@
 var Minecraft = {};
 
+
 Minecraft.startGame = function(){
     $("#intro").css("display", "none");
 };
 
+// box is clicked
+Minecraft.boxClicked = function(){
+    var li = $(this).data("line");
+    var col = $(this).data("column");
 
-// Minecraft.init = function () {
-//     Minecraft.boxes = $(".box");
-//     Minecraft.matrix = [
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-//         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-//
-//     ];
-//     for (var i = 0; i < Minecraft.matrix.length; i++) {
-//         for (var j = 0; j < Minecraft.matrix[i].length; j++) {
-//             Minecraft.boxes.eq(i * 20 + j)
-//                 .data("i", i)
-//                 .data("j", j);
-//             // cellType = Minecraft.matrix[i][j]; //dirt
-//             // DOMcell = $('.' + i + '-' + j);
-//             // if (cellType == 'dirt') {
-//             // }
-//             // DOMcell.addClass(cellType);
-//         }
-//     }
-//     //     }
-//     // }
-// };
+    console.log("  line:" + li + "  column:" +col );
+
+    Minecraft.updateBoard();
+};
+
 
 Minecraft.createBoard = function () {
     //create matrx array
@@ -65,83 +35,138 @@ Minecraft.createBoard = function () {
                 .addClass("box")
                 .data("line", i)
                 .data("column", j)
-                // add on.click
-                .on("click", boxClicked);
+                .on("click", Minecraft.boxClicked);
             $("#board").append(box);
         }
     }
 };
 
 Minecraft.createBoard();
+
+Minecraft.updateBoard = function(){
+    Minecraft.boxes
+        .removeClass("grass")
+        .removeClass("dirt")
+        .removeClass("tree")
+        .removeClass("rock");
+
+    for(var i=0; i<Minecraft.matrix.length; i++){
+        for (var j = 0; j < Minecraft.matrix[i].length; j++) {
+            Minecraft.boxes.eq(i*20 + j).addClass(Minecraft.matrix[i][j]);
+        }
+    }
+}
+
 Minecraft.boxes = $(".box");
-function createDirt() {
-    for (var i = 300; i < 400; i++) {
-        Minecraft.boxes.eq(i).css("background-image", "url(./images/dirt.png)");
+
+Minecraft.createTree = function(line, column){
+    Minecraft.matrix[line][column] = "tree";
+    Minecraft.matrix[line-1][column] = "tree";
+    Minecraft.matrix[line-2][column] = "tree";
+
+
+    Minecraft.matrix[line-3][column] = "leaf";
+    Minecraft.matrix[line-4][column] = "leaf";
+    Minecraft.matrix[line-5][column] = "leaf";
+
+    Minecraft.matrix[line-3][column+1] = "leaf";
+    Minecraft.matrix[line-4][column+1] = "leaf";
+    Minecraft.matrix[line-5][column+1] = "leaf";
+
+    Minecraft.matrix[line-3][column-1] = "leaf";
+    Minecraft.matrix[line-4][column-1] = "leaf";
+    Minecraft.matrix[line-5][column-1] = "leaf";
+
+
+};
+Minecraft.createRock = function(line, column){
+    Minecraft.matrix[line][column] = "rock";
+};
+Minecraft.createCloud = function(line, column) {
+    Minecraft.matrix[line][column] = "cloud";
+
+};
+Minecraft.createBush = function(line, column) {
+    Minecraft.matrix[line][column] = "leaf";
+    Minecraft.matrix[line-1][column] = "leaf";
+    Minecraft.matrix[line][column+1] = "leaf";
+    Minecraft.matrix[line][column-1] = "leaf";
+
+};
+
+Minecraft.drawBoard = function(){
+
+    // Draw Dirt and Grass
+    for(var i=15; i<Minecraft.matrix.length; i++){
+        for (var j = 0; j < Minecraft.matrix[i].length; j++) {
+            if(i === 15){
+                Minecraft.matrix[i][j] = "grass";
+            }
+            else{
+                Minecraft.matrix[i][j] = "dirt";
+            }
+        }
+    }
+
+
+    //Draw Tree
+    Minecraft.createTree(14, 16);
+    Minecraft.createRock(14, 14);
+    Minecraft.createRock(14, 13);
+    Minecraft.createRock(14, 19);
+
+    //Draw Bush
+    Minecraft.createBush(14, 4);
+
+    //Draw Cloud
+    Minecraft.createCloud(7, 3);
+    Minecraft.createCloud(7, 4);
+    Minecraft.createCloud(7, 5);
+    Minecraft.createCloud(7, 6);
+    Minecraft.createCloud(7, 7);
+    Minecraft.createCloud(7, 8);
+    Minecraft.createCloud(7, 9);
+    Minecraft.createCloud(6, 4);
+    Minecraft.createCloud(6, 5);
+    Minecraft.createCloud(6, 6);
+    Minecraft.createCloud(6, 8);
+    Minecraft.createCloud(6, 9);
+    Minecraft.createCloud(5, 5);
+    Minecraft.createCloud(8, 6);
+    Minecraft.createCloud(8, 7);
+
+
+    Minecraft.updateBoard();
+};
+Minecraft.drawBoard();
+
+
+
+Minecraft.updateBoard = function(){
+    Minecraft.boxes
+        .removeClass("grass")
+        .removeClass("dirt")
+        .removeClass("tree")
+        .removeClass("rock");
+
+    for(var i=0; i<Minecraft.matrix.length; i++){
+        for (var j = 0; j < Minecraft.matrix[i].length; j++) {
+            Minecraft.boxes.eq(i*20 + j).addClass(Minecraft.matrix[i][j]);
+        }
     }
 }
-function createGrass() {
-    for (var i = 280; i < 300; i++) {
-        Minecraft.boxes.eq(i).css("background-image", "url(./images/grass.png)");
+
+
+
+$(".tool").click(Minecraft.selectTool);
+Minecraft.selectedTool = function(){
+    if($(this).hasClass("tool")){
+        Minecraft.selectedTool = $(this).attr(id);
     }
-}
-function createRocks() {
-    Minecraft.boxes.eq(273).css("background-image", "url(./images/rock.png)");
-    Minecraft.boxes.eq(274).css("background-image", "url(./images/rock.png)");
-    Minecraft.boxes.eq(279).css("background-image", "url(./images/rock.png)");
-}
-function createTree() {
-    Minecraft.boxes.eq(276).css("background-image", "url(./images/tree.png)");
-    Minecraft.boxes.eq(256).css("background-image", "url(./images/tree.png)");
-    Minecraft.boxes.eq(236).css("background-image", "url(./images/tree.png)");
-    Minecraft.boxes.eq(215).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(216).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(217).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(195).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(196).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(197).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(175).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(176).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(177).css("background-image", "url(./images/leaf.png)");
+    else{
 
-    Minecraft.boxes.eq(263).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(264).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(265).css("background-image", "url(./images/leaf.png)");
-    Minecraft.boxes.eq(244).css("background-image", "url(./images/leaf.png)");
-}
-function createCloud() {
-    Minecraft.boxes.eq(166).css("background-color", "white");
-    Minecraft.boxes.eq(167).css("background-color", "white");
+    }
+};
 
-    Minecraft.boxes.eq(143).css("background-color", "white");
-    Minecraft.boxes.eq(144).css("background-color", "white");
-    Minecraft.boxes.eq(145).css("background-color", "white");
-    Minecraft.boxes.eq(146).css("background-color", "white");
-    Minecraft.boxes.eq(147).css("background-color", "white");
-    Minecraft.boxes.eq(148).css("background-color", "white");
-    Minecraft.boxes.eq(149).css("background-color", "white");
 
-    Minecraft.boxes.eq(124).css("background-color", "white");
-    Minecraft.boxes.eq(125).css("background-color", "white");
-    Minecraft.boxes.eq(126).css("background-color", "white");
-    Minecraft.boxes.eq(128).css("background-color", "white");
-    Minecraft.boxes.eq(129).css("background-color", "white");
 
-    Minecraft.boxes.eq(105).css("background-color", "white");
-}
-
-function createFullDraw() {
-    createDirt();
-    createGrass();
-    createRocks();
-    createTree();
-    createCloud();
-}
-createFullDraw();
-
-function boxClicked(){
-    var li = $(this).data("line");
-    var col = $(this).data("column");
-
-    Minecraft.matrix[li][col] = "clicked!";
-    console.log(Minecraft.matrix[li][col] + "  line:" + li + "  column:" +col );
-}
