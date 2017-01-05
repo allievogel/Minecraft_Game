@@ -41,6 +41,7 @@ body{
 }
 #startgame{
     margin-top: 2%;
+    font-family: 'eightbit';
 }
 .dirt{
     background-image: url(../images/dirt.png);
@@ -56,6 +57,23 @@ body{
     background-image: url(../images/tree.png);
 }
 .leaf{
+    background-image: url(../images/leaf.png);
+}
+
+#dirt{
+    background-image: url(../images/dirt.png);
+}
+
+#grass{
+    background-image: url(../images/grass.png);
+}
+#rock{
+    background-image: url(../images/rock.png);
+}
+#tree{
+    background-image: url(../images/tree.png);
+}
+#leaf{
     background-image: url(../images/leaf.png);
 }
 .cloud{
@@ -154,20 +172,23 @@ body{
 
 }
 
-#emptyBoxtool{
+.inventory{
     height: 30px;
     width: 30px;
     border: 1px solid white;
-    background-color: none;
-    margin-left: 45px;
-    margin-top: 40px;
-    background-size: cover;  
+    background-size: cover;
+    display: inline-block;
+    margin: 3%;
+    text-align: center;
+    color: white;
+    font-family: 'eightbit';
+    font-weight: 700;
 
 }
 
 
 .textClass{
-    font-family: eightbit;
+    font-family: 'eightbit';
     font-size: 8px;
     color: white;
     text-align: center;
