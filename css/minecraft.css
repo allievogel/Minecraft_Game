@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding:0;
+    display: inline-block;
 }
 
 .box{
@@ -15,6 +16,7 @@ body{
 #board{
     width: 600px;
     line-height: 0;
+    display:inline-block;
 }
 .row{
 line-height: 0;
@@ -23,16 +25,77 @@ line-height: 0;
 .dirt{
     background-image: url(../images/dirt.png);
 }
-<<<<<<< HEAD
 
-.sideBar{
-	height: 640px;
-	width: 140px;
+.menuClass{
+	height: 600px;
+	width: 120px;
 	background-color: black;
-	display: inline-block;
-	float: left;
-=======
+    display: inline-block;
+    margin-left: 200px;
+    float: right;
+
+}
+
+.menuClass:hover{
+    opacity: 0.5;
+}
+
 .box:hover{
     opacity: 0.5;
->>>>>>> 00a1a84fa50b3afedeead26c85c49b587388e687
 }
+
+#pickAxeTool{
+    height: 60px;
+    width: 60px;
+    border: 1px solid white;
+    background-image: url("../images/pickaxe.png");
+    margin-left: 30px;
+    margin-top: 60px;
+    background-size: cover;
+}
+
+#shovelTool{
+    height: 60px;
+    width: 60px;
+    border: 1px solid white;
+    background-image: url("../images/shovel.png");
+    margin-left: 30px;
+    margin-top: 40px;
+    background-size: cover;   
+}
+
+#axetool{
+    height: 60px;
+    width: 60px;
+    border: 1px solid white;
+    background-image: url("../images/axe.png");
+    margin-left: 30px;
+    margin-top: 40px;
+    background-size: cover;  
+
+}
+
+#emptyBoxtool{
+    height: 30px;
+    width: 30px;
+    border: 1px solid white;
+    background-color: none;
+    margin-left: 45px;
+    margin-top: 40px;
+    background-size: cover;  
+
+}
+
+@font-face{
+    font-family: eightbit;
+    src: url("../fonts/PressStart2P-Regular.ttf");
+}
+
+.textClass{
+    font-family: eightbit;
+    font-size: 8px;
+    color: white;
+    text-align: center;
+    padding-top:40px;
+}
+
