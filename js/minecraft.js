@@ -1,5 +1,12 @@
 var Minecraft = {};
 
+var dirtCounter = 0;
+var grassCounter = 0;
+var treeCounter = 0;
+var leafCounter = 0;
+var rockCounter = 0;
+var marioCounter = 5;
+
 Minecraft.startGame = function () {
     $("#intro").css("display", "none");
 };
@@ -19,9 +26,9 @@ Minecraft.boxClicked = function () {
     console.log("  line:" + line + "  column:" + col);
 
     if (Minecraft.selectedTool == "axetool") {
-        if (Minecraft.matrix[line][col] == "tree" || Minecraft.matrix[line][col] == "leaf") {
+        if (Minecraft.matrix[line][col] == "tree" || Minecraft.matrix[line][col] == "leaf" || Minecraft.matrix[line][col] == "mario") {
             console.log(Minecraft.matrix[line][col]);
-            Minecraft.tempElement(Minecraft.matrix[line][col]);
+            // Minecraft.tempElement(Minecraft.matrix[line][col]);
             Minecraft.updateCounter(Minecraft.matrix[line][col]);
             Minecraft.matrix[line][col] = "";
 
@@ -36,7 +43,7 @@ Minecraft.boxClicked = function () {
         }
     }
     else if (Minecraft.selectedTool == "pickAxeTool") {
-        if (Minecraft.matrix[line][col] == "rock") {
+        if (Minecraft.matrix[line][col] == "rock" || Minecraft.matrix[line][col] == "mario") {
             Minecraft.tempElement(Minecraft.matrix[line][col]);
             Minecraft.updateCounter(Minecraft.matrix[line][col]);
             Minecraft.matrix[line][col] = "";
@@ -50,11 +57,11 @@ Minecraft.boxClicked = function () {
         }
     }
     else if (Minecraft.selectedTool == "shovelTool") {
-        if (Minecraft.matrix[line][col] == "dirt" || Minecraft.matrix[line][col] == "grass") {
+        if (Minecraft.matrix[line][col] == "dirt" || Minecraft.matrix[line][col] == "grass" || Minecraft.matrix[line][col] == "mario") {
             Minecraft.tempElement(Minecraft.matrix[line][col]);
             Minecraft.updateCounter(Minecraft.matrix[line][col]);
             Minecraft.matrix[line][col] = "";
-
+            console.log("ITS: " +   Minecraft.matrix[line][col]);
         }
         else {
             $("#shovelTool").css("background-color", "red");
@@ -64,6 +71,55 @@ Minecraft.boxClicked = function () {
         }
     }
 
+
+    else if(Minecraft.selectedTool == "dirt" && dirtCounter>0 ){
+        if(Minecraft.matrix[line][col] == ""){
+            Minecraft.matrix[line][col] = "dirt";
+            dirtCounter--;
+            $("#dirtCount").text(dirtCounter);
+        }
+    }
+
+    else if(Minecraft.selectedTool == "grass" && grassCounter>0){
+        if(Minecraft.matrix[line][col] == ""){
+            Minecraft.matrix[line][col] = "grass";
+            grassCounter--;
+            $("#grassCount").text(grassCounter);
+        }
+
+    }
+    else if(Minecraft.selectedTool == "rock" && rockCounter>0){
+        if(Minecraft.matrix[line][col] == ""){
+            Minecraft.matrix[line][col] = "rock";
+            rockCounter--;
+            $("#rockCount").text(rockCounter);
+        }
+
+    }
+    else if(Minecraft.selectedTool == "leaf" && leafCounter>0){
+        if(Minecraft.matrix[line][col] == ""){
+            Minecraft.matrix[line][col] = "leaf";
+            leafCounter--;
+            $("#leafCount").text(leafCounter);
+        }
+
+    }
+    else if(Minecraft.selectedTool == "tree" && treeCounter>0){
+        if(Minecraft.matrix[line][col] == ""){
+            Minecraft.matrix[line][col] = "tree";
+            treeCounter--;
+            $("#treeCount").text(treeCounter);
+        }
+
+    }
+    else if(Minecraft.selectedTool == "mario" && marioCounter>0){
+        if(Minecraft.matrix[line][col] == ""){
+            Minecraft.matrix[line][col] = "mario";
+            marioCounter--;
+            $("#marioCount").text(marioCounter);
+        }
+
+    }
 
     Minecraft.updateBoard();
 };
@@ -104,6 +160,7 @@ Minecraft.updateBoard = function () {
         .removeClass("dirt")
         .removeClass("tree")
         .removeClass("leaf")
+        .removeClass("mario")
         .removeClass("rock");
 
     for (var i = 0; i < Minecraft.matrix.length; i++) {
@@ -194,11 +251,16 @@ Minecraft.drawBoard = function () {
     Minecraft.updateBoard();
 };
 Minecraft.drawBoard();
-var dirtCounter = 0;
-var grassCounter = 0;
-var treeCounter = 0;
-var leafCounter = 0;
-var rockCounter = 0;
+Minecraft.resetBoard = function(){
+    for (var x = 0; x < Minecraft.matrix.length; x++) {
+        for (var y = 0; y < Minecraft.matrix.length; y++) {
+            Minecraft.matrix[x][y] = "";
+        }
+    }
+
+
+    Minecraft.drawBoard();
+};
 
 Minecraft.sideBar = function () {
 
@@ -286,6 +348,26 @@ Minecraft.sideBar = function () {
     $(tempRock).append(rockCount);
     $(mainMenu).append(tempRock);
 
+    var mario = $("<div/>")
+        .addClass("inventory")
+        .attr("id", "mario");
+    var marioCount = $("<p/>")
+        .text(marioCounter)
+        .attr("id", "marioCount")
+        .addClass("counters");
+    $(mario).append(marioCount);
+    $(mainMenu).append(mario);
+
+    var resetBoard = $("<div/>")
+        .addClass("reset")
+    var resetTitle = $("<p/>")
+        .text("RESET"  + "BOARD")
+        .attr("id", "resettitle");
+    $(resetBoard).append(resetTitle);
+    $(mainMenu).append(resetBoard);
+
+    resetBoard.on("click",Minecraft.resetBoard );
+
     $("body").append(mainMenu);
 };
 
@@ -301,6 +383,9 @@ Minecraft.toolSelect = function () {
         console.log("Current tool: " + Minecraft.selectedTool);
     }
     else if ($(this).hasClass("inventory")) {
+        $(".tool").css("background-color", "black");
+        $(".inventory").css("border", "none");
+        $(this).css("border", "3px solid yellow");
         Minecraft.selectedTool = $(this).attr('id');
         console.log("Current temp selected: " + Minecraft.selectedTool);
     }
@@ -326,14 +411,26 @@ Minecraft.updateCounter = function(tempElement){
     else if(tempElement == "dirt"){
         dirtCounter++
     }
+    else if(tempElement == "mario"){
+        marioCounter++
+    }
 
     $("#treeCount").text(treeCounter);
     $("#leafCount").text(leafCounter);
     $("#rockCount").text(rockCounter);
     $("#grassCount").text(grassCounter);
     $("#dirtCount").text(dirtCounter);
+    $("#marioCount").text(marioCounter);
 
 };
+
+Minecraft.tutorial = function(){
+    $('#tutorialModal').modal({
+        display: 'show',
+        backdrop: 'static',
+        keyboard: false  // to prevent closing with Esc button (if you want this too)
+    });
+}
 
 
 

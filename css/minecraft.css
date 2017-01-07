@@ -16,6 +16,10 @@ body{
     background-size: cover;
 }
 
+.box:hover{
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.67) inset;
+}
+
 #board{
     width: 600px;
     line-height: 0;
@@ -39,10 +43,7 @@ body{
     margin-top: 15%;
     width: 60%;
 }
-#startgame{
-    margin-top: 2%;
-    font-family: 'eightbit';
-}
+
 .dirt{
     background-image: url(../images/dirt.png);
 }
@@ -76,14 +77,19 @@ body{
 #leaf{
     background-image: url(../images/leaf.png);
 }
+#mario{
+    background-image: url(../images/mario.png);
+}
+.mario{
+    background-image: url(../images/mario.png);
+}
 .cloud{
     background-color: white;
 }
-.box:hover{
-    opacity: 0.5;
-}
 
 .myButton {
+    margin-top: 2%;
+    font-family: 'eightbit';
     -moz-box-shadow:inset 0px 1px 0px 0px #caefab;
     -webkit-box-shadow:inset 0px 1px 0px 0px #caefab;
     box-shadow:inset 0px 1px 0px 0px #caefab;
@@ -102,12 +108,13 @@ body{
     display:inline-block;
     cursor:pointer;
     color:#306108;
-    font-family:Arial;
     font-size:24px;
     font-weight:bold;
     padding:10px 36px;
     text-decoration:none;
     text-shadow:0px 1px 0px #aade7c;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 .myButton:hover {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5cb811), color-stop(1, #77d42a));
@@ -126,7 +133,7 @@ body{
 
 .menuClass{
 	height: 600px;
-	width: 120px;
+	width: 125px;
 	background-color: black;
     display: inline-block;
     margin-left: 200px;
@@ -150,7 +157,9 @@ body{
     margin-top: 60px;
     background-size: cover;
 }
-
+#resettitle{
+    margin-top: 10%;
+}
 #shovelTool{
     height: 60px;
     width: 60px;
@@ -168,13 +177,13 @@ body{
     background-image: url("../images/axe.png");
     margin-left: 30px;
     margin-top: 40px;
-    background-size: cover;  
-
+    background-size: cover;
+    margin-bottom: 40px;
 }
 
 .inventory{
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     border: 1px solid white;
     background-size: cover;
     display: inline-block;
@@ -195,4 +204,36 @@ body{
     padding-top:40px;
 }
 
+.reset{
+    height: 36px;
+    width: 86%;
+    border: 1px solid white;
+    background-size: cover;
+    margin: 3%;
+    text-align: center;
+    color: white;
+    font-family: 'eightbit';
+    -ms-word-break: break-all;
+    word-break: break-all;
+    font-size: 9px;
+}
 
+.reset:hover{
+    opacity: 0.5;
+}
+#modallogo{
+    width: 75%;
+    margin-top: 5%;
+}
+.modal-content{
+    text-align: center;
+}
+.modal-footer {
+    text-align: center;
+}
+#tutorialP{
+    font-family: 'eightbit';
+}
+h1{
+    font-family: 'eightbit';
+}

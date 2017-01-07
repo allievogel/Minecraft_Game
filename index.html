@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Minecraft</title>
     <!-- Bootstrap -->
-    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/minecraft.css" type="text/css" rel="stylesheet">
 
 </head>
@@ -15,12 +15,39 @@
     <img id="logo" src="images/logo.png">
     <br>
     <button class="myButton" id="startgame" onclick="Minecraft.startGame()">Start Game</button>
+    <button class="myButton" id="tutorial" onclick="Minecraft.tutorial()">Tutorial</button>
 </div>
+<div class="tutorialModal">
+    <!-- Trigger the modal with a button -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="tutorialModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="images/logo.png" id="modallogo">
+                    <h1>HOW?</h1>
+                </div>
+                <div class="modal-body" id="modalbox">
+
+                    <p id="tutorialP">Press "Start Game"<br> & <br> pick some tool from the right menu<br>...<br>have fun!</brr></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary myButton" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <div id="board"></div>
 
 <script src="js/jquery.min.js"></script>
-<!--<script src="js/bootstrap.min.js"></script>-->
+<script src="js/bootstrap.min.js"></script>
 <script src="js/minecraft.js"></script>
 </body>
 </html>
