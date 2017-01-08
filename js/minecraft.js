@@ -1,47 +1,50 @@
+//Creating the Minecraft Namespace
 var Minecraft = {};
+//The different counters used to maintain
+Minecraft.dirtCounter = 0;
+Minecraft.grassCounter = 0;
+Minecraft.treeCounter = 0;
+Minecraft.leafCounter = 0;
+Minecraft.rockCounter = 0;
+Minecraft.marioCounter = 5;
 
-var dirtCounter = 0;
-var grassCounter = 0;
-var treeCounter = 0;
-var leafCounter = 0;
-var rockCounter = 0;
-var marioCounter = 5;
-
+//When loading the game
 Minecraft.startGame = function () {
     $("#intro").css("display", "none");
 };
 
-//update the temp picked element
+//Updates the temp element with the picked element
 Minecraft.tempElement = function (tempPicked) {
     $('#inventory')
         .css({"border": "1px solid white"})
         .addClass(tempPicked);
-}
+};
 
-// box is clicked
+//When a box is clicked
 Minecraft.boxClicked = function () {
     var line = $(this).data("line");
     var col = $(this).data("column");
 
     console.log("  line:" + line + "  column:" + col);
-
-    if (Minecraft.selectedTool == "axetool") {
+//When using the Axe
+    if (Minecraft.selectedTool == "axeTool") {
         if (Minecraft.matrix[line][col] == "tree" || Minecraft.matrix[line][col] == "leaf" || Minecraft.matrix[line][col] == "mario") {
             console.log(Minecraft.matrix[line][col]);
-            // Minecraft.tempElement(Minecraft.matrix[line][col]);
+            Minecraft.tempElement(Minecraft.matrix[line][col]);
             Minecraft.updateCounter(Minecraft.matrix[line][col]);
             Minecraft.matrix[line][col] = "";
 
         }
-
+//If something doesn't work with the axe
         else {
-            $("#axetool").css("background-color", "red");
+            $("#axeTool").css("background-color", "red");
 
             setTimeout(function () {
-                $("#axetool").css("background-color", "blue");
+                $("#axeTool").css("background-color", "blue");
             }, 200);
         }
     }
+//When using the Pickaxe
     else if (Minecraft.selectedTool == "pickAxeTool") {
         if (Minecraft.matrix[line][col] == "rock" || Minecraft.matrix[line][col] == "mario") {
             Minecraft.tempElement(Minecraft.matrix[line][col]);
@@ -49,6 +52,7 @@ Minecraft.boxClicked = function () {
             Minecraft.matrix[line][col] = "";
 
         }
+//If something doesn't work with the pickaxe
         else {
             $("#pickAxeTool").css("background-color", "red");
             setTimeout(function () {
@@ -56,6 +60,7 @@ Minecraft.boxClicked = function () {
             }, 200);
         }
     }
+//When using the shovel
     else if (Minecraft.selectedTool == "shovelTool") {
         if (Minecraft.matrix[line][col] == "dirt" || Minecraft.matrix[line][col] == "grass" || Minecraft.matrix[line][col] == "mario") {
             Minecraft.tempElement(Minecraft.matrix[line][col]);
@@ -63,6 +68,7 @@ Minecraft.boxClicked = function () {
             Minecraft.matrix[line][col] = "";
             console.log("ITS: " +   Minecraft.matrix[line][col]);
         }
+//If something doesn't work with the shovel
         else {
             $("#shovelTool").css("background-color", "red");
             setTimeout(function () {
@@ -71,60 +77,61 @@ Minecraft.boxClicked = function () {
         }
     }
 
-
-    else if(Minecraft.selectedTool == "dirt" && dirtCounter>0 ){
+//If you want to place dirt
+    else if(Minecraft.selectedTool == "dirt" && Minecraft.dirtCounter>0 ){
         if(Minecraft.matrix[line][col] == ""){
             Minecraft.matrix[line][col] = "dirt";
-            dirtCounter--;
-            $("#dirtCount").text(dirtCounter);
+            Minecraft.dirtCounter--;
+            $("#dirtCount").text(Minecraft.dirtCounter);
         }
     }
-
-    else if(Minecraft.selectedTool == "grass" && grassCounter>0){
+//If you want to place grass
+    else if(Minecraft.selectedTool == "grass" && Minecraft.grassCounter>0){
         if(Minecraft.matrix[line][col] == ""){
             Minecraft.matrix[line][col] = "grass";
-            grassCounter--;
-            $("#grassCount").text(grassCounter);
+            Minecraft.grassCounter--;
+            $("#grassCount").text(Minecraft.grassCounter);
         }
-
     }
-    else if(Minecraft.selectedTool == "rock" && rockCounter>0){
+//If you want to put down a rock
+    else if(Minecraft.selectedTool == "rock" && Minecraft.rockCounter>0){
         if(Minecraft.matrix[line][col] == ""){
             Minecraft.matrix[line][col] = "rock";
-            rockCounter--;
-            $("#rockCount").text(rockCounter);
+            Minecraft.rockCounter--;
+            $("#rockCount").text(Minecraft.rockCounter);
         }
-
     }
-    else if(Minecraft.selectedTool == "leaf" && leafCounter>0){
+//If you want to put down a leaf
+    else if(Minecraft.selectedTool == "leaf" && Minecraft.leafCounter>0){
         if(Minecraft.matrix[line][col] == ""){
             Minecraft.matrix[line][col] = "leaf";
-            leafCounter--;
-            $("#leafCount").text(leafCounter);
+            Minecraft.leafCounter--;
+            $("#leafCount").text(Minecraft.leafCounter);
         }
-
     }
-    else if(Minecraft.selectedTool == "tree" && treeCounter>0){
+//If you want to put down a tree trunk
+    else if(Minecraft.selectedTool == "tree" && Minecraft.treeCounter>0){
         if(Minecraft.matrix[line][col] == ""){
             Minecraft.matrix[line][col] = "tree";
-            treeCounter--;
-            $("#treeCount").text(treeCounter);
+            Minecraft.treeCounter--;
+            $("#treeCount").text(Minecraft.treeCounter);
         }
 
     }
-    else if(Minecraft.selectedTool == "mario" && marioCounter>0){
+//If you want to put down Mario
+    else if(Minecraft.selectedTool == "mario" && Minecraft.marioCounter>0){
         if(Minecraft.matrix[line][col] == ""){
             Minecraft.matrix[line][col] = "mario";
-            marioCounter--;
-            $("#marioCount").text(marioCounter);
+            Minecraft.marioCounter--;
+            $("#marioCount").text(Minecraft.marioCounter);
         }
 
     }
-
+//Updates the board with changes
     Minecraft.updateBoard();
 };
 
-
+//Creates the board
 Minecraft.createBoard = function () {
 
     //creates matrix array
@@ -139,7 +146,7 @@ Minecraft.createBoard = function () {
     }
 
 
-/// create board
+// create board
     for (var i = 0; i < Minecraft.matrix.length; i++) {
         for (var j = 0; j < Minecraft.matrix[i].length; j++) {
             var box = $("<div/>")
@@ -153,7 +160,7 @@ Minecraft.createBoard = function () {
 };
 
 Minecraft.createBoard();
-
+//Function for updating the board
 Minecraft.updateBoard = function () {
     Minecraft.boxes
         .removeClass("grass")
@@ -168,10 +175,10 @@ Minecraft.updateBoard = function () {
             Minecraft.boxes.eq(i * 20 + j).addClass(Minecraft.matrix[i][j]);
         }
     }
-}
+};
 
 Minecraft.boxes = $(".box");
-
+//Creates the trees and leaves upon generating the map
 Minecraft.createTree = function (line, column) {
     Minecraft.matrix[line][column] = "tree";
     Minecraft.matrix[line - 1][column] = "tree";
@@ -192,13 +199,16 @@ Minecraft.createTree = function (line, column) {
 
 
 };
+//Creates the rocks upon map generation
 Minecraft.createRock = function (line, column) {
     Minecraft.matrix[line][column] = "rock";
 };
+//Creates the clouds on map generation
 Minecraft.createCloud = function (line, column) {
     Minecraft.matrix[line][column] = "cloud";
 
 };
+//Creates the bush on map generation
 Minecraft.createBush = function (line, column) {
     Minecraft.matrix[line][column] = "leaf";
     Minecraft.matrix[line - 1][column] = "leaf";
@@ -251,17 +261,26 @@ Minecraft.drawBoard = function () {
     Minecraft.updateBoard();
 };
 Minecraft.drawBoard();
+//If you want to reset the board, reverts to original settings.
 Minecraft.resetBoard = function(){
     for (var x = 0; x < Minecraft.matrix.length; x++) {
         for (var y = 0; y < Minecraft.matrix.length; y++) {
             Minecraft.matrix[x][y] = "";
         }
     }
-
-
+    Minecraft.dirtCounter = 0;
+    Minecraft.grassCounter = 0;
+    Minecraft.treeCounter = 0;
+    Minecraft.leafCounter = 0;
+    Minecraft.rockCounter = 0;
+    Minecraft.marioCounter = 5;
+    Minecraft.updateCounter();
+    //Removes selected background on icons
+    $(".tool").css("background-color", "black");
+    $(".inventory").css("border","1px solid white");
     Minecraft.drawBoard();
 };
-
+//Creates the sidebar
 Minecraft.sideBar = function () {
 
 
@@ -288,21 +307,18 @@ Minecraft.sideBar = function () {
 
     var axe = $("<div/>")
         .addClass("tool")
-        .attr("id", "axetool");
+        .attr("id", "axeTool");
     var axeTitle = $("<p/>")
         .text("Axe")
         .addClass("textClass");
     $(axe).append(axeTitle);
     $(mainMenu).append(axe);
 
-
-
-
     var tempDirt = $("<div/>")
         .addClass("inventory")
         .attr("id", "dirt");
     var dirtCount = $("<p/>")
-        .text(dirtCounter)
+        .text(Minecraft.dirtCounter)
         .attr("id", "dirtCount")
         .addClass("counters");
     $(tempDirt).append(dirtCount);
@@ -312,7 +328,7 @@ Minecraft.sideBar = function () {
         .addClass("inventory")
         .attr("id", "grass");
     var grassCount = $("<p/>")
-        .text(grassCounter)
+        .text(Minecraft.grassCounter)
         .attr("id", "grassCount")
         .addClass("counters");
     $(tempGrass).append(grassCount);
@@ -322,7 +338,7 @@ Minecraft.sideBar = function () {
         .addClass("inventory")
         .attr("id", "tree");
     var treeCount = $("<p/>")
-        .text(treeCounter)
+        .text(Minecraft.treeCounter)
         .attr("id", "treeCount")
         .addClass("counters");
     $(tempTree).append(treeCount);
@@ -332,7 +348,7 @@ Minecraft.sideBar = function () {
         .addClass("inventory")
         .attr("id", "leaf");
     var leafCount = $("<p/>")
-        .text(leafCounter)
+        .text(Minecraft.leafCounter)
         .attr("id", "leafCount")
         .addClass("counters");
     $(tempLeaf).append(leafCount);
@@ -342,7 +358,7 @@ Minecraft.sideBar = function () {
         .addClass("inventory")
         .attr("id", "rock");
     var rockCount = $("<p/>")
-        .text(rockCounter)
+        .text(Minecraft.rockCounter)
         .attr("id", "rockCount")
         .addClass("counters");
     $(tempRock).append(rockCount);
@@ -352,17 +368,17 @@ Minecraft.sideBar = function () {
         .addClass("inventory")
         .attr("id", "mario");
     var marioCount = $("<p/>")
-        .text(marioCounter)
+        .text(Minecraft.marioCounter)
         .attr("id", "marioCount")
         .addClass("counters");
     $(mario).append(marioCount);
     $(mainMenu).append(mario);
 
     var resetBoard = $("<div/>")
-        .addClass("reset")
+        .addClass("reset");
     var resetTitle = $("<p/>")
         .text("RESET"  + "BOARD")
-        .attr("id", "resettitle");
+        .attr("id", "resetTitle");
     $(resetBoard).append(resetTitle);
     $(mainMenu).append(resetBoard);
 
@@ -372,55 +388,55 @@ Minecraft.sideBar = function () {
 };
 
 Minecraft.sideBar();
-
-
+//For selecting tools
 Minecraft.toolSelect = function () {
 
     if ($(this).hasClass("tool")) {
         $(".tool").css("background-color", "black");
+        $(".inventory").css("border","1px solid white");
         $(this).css("background-color", "blue");
         Minecraft.selectedTool = $(this).attr('id');
-        console.log("Current tool: " + Minecraft.selectedTool);
+        console.log("Current selected tool is: " + Minecraft.selectedTool);
     }
     else if ($(this).hasClass("inventory")) {
         $(".tool").css("background-color", "black");
-        $(".inventory").css("border", "none");
-        $(this).css("border", "3px solid yellow");
+        $(".inventory").css("border","1px solid white");
+        $(this).css("border","1px solid blue");
         Minecraft.selectedTool = $(this).attr('id');
-        console.log("Current temp selected: " + Minecraft.selectedTool);
+        console.log("Current item selected is: " + Minecraft.selectedTool);
     }
 };
-
+//Event listeners for the objects in the sidebar
 $(".tool").on("click", Minecraft.toolSelect);
 
 $(".inventory").on("click", Minecraft.toolSelect);
-
+//Updates the counter when a change is made
 Minecraft.updateCounter = function(tempElement){
     if(tempElement == "tree"){
-        treeCounter++
+        Minecraft.treeCounter++
     }
     else if(tempElement == "leaf"){
-        leafCounter++
+        Minecraft.leafCounter++
     }
     else if(tempElement == "rock"){
-        rockCounter++
+        Minecraft.rockCounter++
     }
     else if(tempElement == "grass"){
-        grassCounter++
+        Minecraft.grassCounter++
     }
     else if(tempElement == "dirt"){
-        dirtCounter++
+        Minecraft.dirtCounter++
     }
     else if(tempElement == "mario"){
-        marioCounter++
+        Minecraft.marioCounter++
     }
 
-    $("#treeCount").text(treeCounter);
-    $("#leafCount").text(leafCounter);
-    $("#rockCount").text(rockCounter);
-    $("#grassCount").text(grassCounter);
-    $("#dirtCount").text(dirtCounter);
-    $("#marioCount").text(marioCounter);
+    $("#treeCount").text(Minecraft.treeCounter);
+    $("#leafCount").text(Minecraft.leafCounter);
+    $("#rockCount").text(Minecraft.rockCounter);
+    $("#grassCount").text(Minecraft.grassCounter);
+    $("#dirtCount").text(Minecraft.dirtCounter);
+    $("#marioCount").text(Minecraft.marioCounter);
 
 };
 
@@ -430,7 +446,7 @@ Minecraft.tutorial = function(){
         backdrop: 'static',
         keyboard: false  // to prevent closing with Esc button (if you want this too)
     });
-}
+};
 
 
 

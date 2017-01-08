@@ -35,7 +35,7 @@ body{
     left: 0;
     z-index: 1;
 
-    /* Preserve aspet ratio */
+    /* Preserve aspect ratio */
     min-width: 100%;
     min-height: 100%;
 }
@@ -146,6 +146,7 @@ body{
 
 .tool:hover{
     opacity: 0.75;
+    cursor: pointer;
 }
 
 #pickAxeTool{
@@ -157,7 +158,7 @@ body{
     margin-top: 60px;
     background-size: cover;
 }
-#resettitle{
+#resetTitle{
     margin-top: 10%;
 }
 #shovelTool{
@@ -170,7 +171,7 @@ body{
     background-size: cover;   
 }
 
-#axetool{
+#axeTool{
     height: 60px;
     width: 60px;
     border: 1px solid white;
@@ -192,9 +193,10 @@ body{
     color: white;
     font-family: 'eightbit';
     font-weight: 700;
-
 }
-
+.inventory:hover{
+    cursor: pointer;
+}
 
 .textClass{
     font-family: 'eightbit';
@@ -220,8 +222,9 @@ body{
 
 .reset:hover{
     opacity: 0.5;
+    cursor: pointer;
 }
-#modallogo{
+#modalLogo{
     width: 75%;
     margin-top: 5%;
 }
